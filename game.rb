@@ -6,9 +6,10 @@ class Game
   end
 
   point = 0
-  CSV.foreach("words.csv") do |row|
+  words = CSV.read("words.csv").shuffle
+  words.each do |word|
     print "Tebak kata: "
-    word = row[0]
+    word = word[0]
     answer = nil
     puts string_shuffle(word)
     until answer == word
