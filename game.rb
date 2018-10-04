@@ -10,7 +10,7 @@ class Game
   words = CSV.read("words.csv").shuffle
   puts "Silahkan pilih level game (1-#{max_level})"
   level = gets.chomp.to_i
-  until level == max_level
+  until level > max_level
     words.each do |word|
       word = word[0]
       next unless word.length == level + 3
@@ -27,6 +27,9 @@ class Game
           puts "SALAH! Silakan coba lagi"
         end
       end
+    end
+    if level == max_level
+      break
     end
     level += 1
     puts "Lanjut ke level #{level}? (y/n)"
