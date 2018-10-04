@@ -5,22 +5,40 @@ class Game
     s.split("").shuffle.join
   end
 
+  max_level = 5
   point = 0
   words = CSV.read("words.csv").shuffle
-  words.each do |word|
-    print "Tebak kata: "
-    word = word[0]
-    answer = nil
-    puts string_shuffle(word)
-    until answer == word
-      print "Jawab: "
-      answer = gets.chomp
-      if answer == word
-        point += 1
-        puts "BENAR point anda : #{point}!"
-      else
-        puts "SALAH! Silakan coba lagi"
+  puts "Silahkan pilih level game (1-#{max_level})"
+  level = gets.chomp.to_i
+  until level == max_level
+    words.each do |word|
+      word = word[0]
+      next unless word.length == level + 3
+      answer = nil
+      print "Tebak kata: "
+      puts string_shuffle(word)
+      until answer == word
+        print "Jawab: "
+        answer = gets.chomp
+        if answer == word
+          point += 1
+          puts "BENAR point anda : #{point}!"
+        else
+          puts "SALAH! Silakan coba lagi"
+        end
       end
+    end
+    level += 1
+    puts "Lanjut ke level #{level}? (y/n)"
+    answer = gets.chomp.downcase
+    case answer
+    when "y"
+      next
+    when "n"
+      break
+    else
+      puts "Pilihan anda salah"
+      break
     end
   end
 end
