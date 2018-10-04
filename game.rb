@@ -5,6 +5,10 @@ class Game
     s.split("").shuffle.join
   end
 
+  def self.exit_message(point)
+    puts "Selamat! Anda memperoleh #{point} poin"
+  end
+
   max_level = 5
   point = 0
   words = CSV.read("words.csv").shuffle
@@ -29,6 +33,7 @@ class Game
       end
     end
     if level == max_level
+      exit_message(point)
       break
     end
     level += 1
@@ -38,9 +43,11 @@ class Game
     when "y"
       next
     when "n"
+      exit_message(point)
       break
     else
       puts "Pilihan anda salah"
+      exit_message(point)
       break
     end
   end
